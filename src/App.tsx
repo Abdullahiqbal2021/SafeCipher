@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Layout from "./pages/Layout";
-import { Children } from "react";
 import Encrypt from "./pages/Encrypt";
 import Decrypt from "./pages/Decrypt";
 import NotFound from "./pages/NotFound";
+import ViewData from "./pages/ViewData";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "/decrypt",
         element: <Decrypt />,
+      },
+      {
+        path: "/viewData",
+        element: <ViewData />,
       },
       {
         path: "*",

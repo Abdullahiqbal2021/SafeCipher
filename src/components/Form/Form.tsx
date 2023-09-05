@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form as ReactForm } from "react-router-dom";
 import { toast } from "react-toastify";
 import { decryptData, encryptData } from "../../lib/crypto.js";
-import { XSquare, Copy } from "lucide-react";
+import { XSquare, Copy, Save } from "lucide-react";
 
 type PropsType = {
   type?: "Encrypt" | "Decrypt";
@@ -18,7 +18,6 @@ const Form = ({ type = "Encrypt" }: PropsType) => {
       private_key: formData.get("private_key"),
       text: formData.get("text"),
     };
-    console.log(val);
 
     if (val.private_key && val.text) {
       const trimmedPrivateKey = val.private_key.toString().trim();
@@ -38,6 +37,43 @@ const Form = ({ type = "Encrypt" }: PropsType) => {
         }
         setText(convertedData);
       }
+    }
+  };
+  const handlePrompt = () => {
+    const userInput = window.prompt("Enter The Name:");
+    if (userInput === null || !userInput.trim()) {
+      toast.error("Please Write Name to Save");
+    } else {
+      addOrUpdateLocalStorage({ name: userInput, key: text });
+    }
+  };
+
+  const addOrUpdateLocalStorage = (newData: Record<string, unknown>) => {
+    try {
+      // Check if data with the given key already exists in localStorage
+      const existingData = localStorage.getItem("encryptedData");
+
+      // If data already exists, parse it from JSON
+      let parsedData = existingData ? JSON.parse(existingData) : [];
+
+      if (Array.isArray(parsedData)) {
+        // If it's an array, push the new item into it
+        parsedData.push(newData);
+      } else {
+        // If it's not an array (or doesn't exist), create a new array with the new item
+        parsedData = [newData];
+      }
+
+      // Convert the merged data back to JSON
+      const jsonData = JSON.stringify(parsedData);
+
+      // Store the merged JSON data in localStorage
+      localStorage.setItem("encryptedData", jsonData);
+
+      toast.success("Data added successfully");
+    } catch (error) {
+      console.error("Error adding/updating localStorage:", error);
+      toast.error("Something went wrong while storing the data");
     }
   };
 
@@ -111,13 +147,26 @@ const Form = ({ type = "Encrypt" }: PropsType) => {
                     Enter Private Key
                   </label>
                 </div>
-                <div className='relative'>
+                <div className='relative flex'>
                   <button
                     className='bg-blue-500 text-white rounded-md px-2 py-1'
                     type='submit'
                   >
                     {type}
                   </button>
+                  {type === "Encrypt" && (
+                    <div
+                      className='flex bg-blue-500 text-white rounded-md px-2 py-1 ml-2 gap-1 items-center cursor-pointer'
+                      onClick={() => {
+                        if (!text) return toast.error("Encrypt the data first");
+
+                        handlePrompt();
+                      }}
+                    >
+                      <Save size={18} />
+                      Save
+                    </div>
+                  )}
                 </div>
               </ReactForm>
             </div>

@@ -15,5 +15,5 @@ Safe Cipher is a fun side project I built with React. It's a super simple app th
 ### Getting Started
 
 1. **Clone this Repository**: Just Clone the repo.
-2. **Install Dependencies**: Run `pnpm install`.
-3. **Fire it Up**: Start the app with `npm run dev`.
+2. **Install Dependencies**: Run `pnpm install` or `npm install`
+3. **Fire it Up**: Start the app with `pnpm run dev` or `npm run dev`
