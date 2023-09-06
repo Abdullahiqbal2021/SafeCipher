@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { FileWarning } from "lucide-react";
 
-import errorImage from "/public/404.png";
+import errorImage from "../../assets/404.png";
 
 export default function NotFound() {
   return (

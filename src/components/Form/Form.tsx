@@ -78,7 +78,7 @@ const Form = ({ type = "Encrypt" }: PropsType) => {
   };
 
   return (
-    <div className='min-h-[calc(100vh-64px)] bg-gray-100 py-6 flex flex-col justify-center sm:py-12 relative items-center'>
+    <div className='min-h-[calc(100vh-64px)] bg-gray-100 py-6 flex flex-col justify-center relative items-center'>
       <div
         className={`absolute top-4 min-h-[100px] p-2 px-3 w-[96%] mx-auto border   bg-gradient-to-r from-blue-300 to-blue-600 rounded-md z-50 break-words whitespace-pre-line overflow-hidden ${
           text ? "opacity-100 scale-100" : `opacity-0 scale-0`
